@@ -1,0 +1,33 @@
+.home {
+  width: 75%;
+  margin: auto;
+  text-align: center;
+}
+.heading h1 {
+  font-size: 4.5em;
+  color: #cf9fff;
+}
+.genres p{
+    color: white;
+    font-size: 1em;
+}
+.genres select {
+  margin: 5px;
+  padding: 10px;
+  border-radius: 15px;
+  background-color: #cf9fff;
+  color: white;
+}
+.headingImg{
+    width: 13%;
+    margin: auto;
+}
+.headingImg img{
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+    border: 3px solid #cf9fff;
+}
+.btnDiv{
+    margin-top: 10px;
+}
