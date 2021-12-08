@@ -1,53 +1,27 @@
 import { useEffect, useState } from "react";
 import Paginator from "../UI/Paginator";
 import classes from "./Animes.module.css";
+import { Link, Redirect } from "react-router-dom";
+import Error from "./Error";
+import { pagesPerGenre, genreIds } from "../../utils/dicts";
+
 
 const jikan = require("jikanjs");
-
-const pagesPerGenre = {
-  Action: 40,
-  Adventure: 32,
-  Cars: 2,
-  Comedy: 64,
-  "Avant Garde": 6,
-  Demons: 6,
-  Drama: 28,
-  Ecchi: 8,
-  Fantasy: 36,
-  Game: 5,
-  Harem: 5,
-  Hentai: 14,
-  Historical: 13,
-  Horror: 5,
-  Josei: 1,
-  Kids: 35,
-  "Martial Arts": 5,
-  Mecha: 12,
-  Military: 6,
-  Music: 25,
-  Mystery: 8,
-  Parody: 7,
-  Police: 3,
-  Psychological: 4,
-  Romance: 20,
-  Samurai: 3,
-  School: 18,
-  "Sci-Fi": 27,
-  Seinen: 9,
-  Shoujo: 7,
-  Shonen: 20,
-  "Slice of Life": 21,
-  Space: 6,
-  Sports: 8,
-  "Super Power": 7,
-  Supernatural: 26,
-  Vampire: 2,
-};
+const ANIMES_PER_PAGE = 25;
 
 const Animes = (props) => {
-  const [animes, setAnimes] = useState([]);
-  const [page, setPage] = useState(1);
+  if (props.info === undefined) {
+    <Redirect to="/"></Redirect>;
+  }
 
+  const [animes, setAnimes] = useState(undefined);
+  const [page, setPage] = useState(1);
+  const [numOfPage, setNumOfPage] = useState(undefined);
+  let animePageContent;
+
+  const changeCurrentPage = (page) => {
+    setPage(page);
+  };
   const incrementPage = () => {
     setPage((prevPage) => {
       return prevPage + 1;
@@ -60,50 +34,115 @@ const Animes = (props) => {
     });
   };
 
+  const liftState = () => {
+    props.liftAnimes(animes);
+  };
+
   useEffect(() => {
-      console.log(props)
     const getAnimes = async () => {
-      let matchedAnimes = [];
-      for (let i = 1; i <= pagesPerGenre[props.info.first]; i++) {
-             try {
-               let { anime } = await jikan.loadGenre(
-                 "anime",
-                 props.info.firstGenreId,
-                 i
-               );
-               anime = anime.filter((anime) => {
-                 const genres = JSON.stringify(anime.genres); // Stringify the genres of the anime
-                 return (
-                   genres.includes(props.info.second) &&
-                   genres.includes(props.info.third)
-                 );
-               });
-               matchedAnimes = matchedAnimes.concat(anime);
-             } catch (error) {
-               console.log(error);
-             }
+      let getAnimes = [];
+      const minPageInGenres = Math.min(
+        pagesPerGenre[props.info.first],
+        pagesPerGenre[props.info.second],
+        pagesPerGenre[props.info.third]
+      );
+
+      let genreWithMinPages;
+      if (pagesPerGenre[props.info.first] === minPageInGenres) {
+        genreWithMinPages = props.info.first;
+      } else if (pagesPerGenre[props.info.second] === minPageInGenres) {
+        genreWithMinPages = props.info.second;
+      } else {
+        genreWithMinPages = props.info.third;
       }
-      console.log(matchedAnimes);
-      setAnimes(matchedAnimes);
+      console.log(props.info, genreWithMinPages, genreIds);
+      for (let i = 1; i <= minPageInGenres; i++) {
+        try {
+          let { anime } = await jikan.loadGenre(
+            "anime",
+            genreIds[genreWithMinPages],
+            i
+          );
+          getAnimes = getAnimes.concat(anime);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
+      getAnimes = getAnimes.filter((anime) => {
+        const genres = JSON.stringify(anime.genres);
+        if (genreWithMinPages === props.info.first) {
+          return (
+            genres.includes(props.info.second) &&
+            genres.includes(props.info.third)
+          );
+        } else if (genreWithMinPages === props.info.second) {
+          return (
+            genres.includes(props.info.first) &&
+            genres.includes(props.info.third)
+          );
+        }
+        return (
+          genres.includes(props.info.first) &&
+          genres.includes(props.info.second)
+        );
+      });
+      setAnimes(getAnimes);
+      setNumOfPage(getAnimes.length / ANIMES_PER_PAGE);
+      console.log(getAnimes);
     };
 
     getAnimes();
-  }, [props]);
+  }, [props.info]);
 
-  return (
-    <div className={classes.animesFound}>
-      <div className={classes.animes}>
-        {animes.map((anime,idx) => {
-          return (
-            <div className={classes.anime} key={idx}>
-              <img src={anime.image_url} alt="anime" />
-            </div>
-          );
-        })}
+  if (animes === undefined) {
+    animePageContent = <p>Loading Animes...</p>;
+  } else if (animes !== undefined && animes.length === 0) {
+    animePageContent = <p>No Animes were Found!</p>;
+  } else {
+    let currentAnimes = [];
+    let starting;
+    let ending;
+    if (page === 1) {
+      starting = 0;
+    } else {
+      starting = page * ANIMES_PER_PAGE;
+    }
+
+    ending = starting + ANIMES_PER_PAGE;
+    for (let i = starting; i < ending && i < animes.length; i++) {
+      currentAnimes.push(animes[i]);
+    }
+
+    animePageContent = (
+      <div className={classes.animesFound}>
+        <div className={classes.found}>
+          <h2>{animes.length}</h2>
+        </div>
+        <div className={classes.animes}>
+          {currentAnimes.map((anime, idx) => {
+            return (
+              <div className={classes.anime} key={idx}>
+                <Link to={`/animes/${idx}`} onClick={liftState}>
+                  <img src={anime.image_url} alt="anime" />
+                  <p>{anime.title}</p>
+                </Link>
+              </div>
+            );
+          })}
+        </div>
+        <Paginator
+          pages={numOfPage}
+          currentPage={page}
+          changePage={changeCurrentPage}
+          nextPage={incrementPage}
+          prevPage={decrementPage}
+        />
       </div>
-      <Paginator />
-    </div>
-  );
+    );
+  }
+
+  return animePageContent;
 };
 
 export default Animes;
