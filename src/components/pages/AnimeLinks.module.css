@@ -1,0 +1,6 @@
+.animeLinks {
+  display: flex;
+}
+.animeLinks a {
+  margin: 10px;
+}

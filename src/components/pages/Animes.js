@@ -4,7 +4,7 @@ import classes from "./Animes.module.css";
 import { Link, Redirect } from "react-router-dom";
 import Error from "./Error";
 import { pagesPerGenre, genreIds } from "../../utils/dicts";
-
+import "../../index.css";
 
 const jikan = require("jikanjs");
 const ANIMES_PER_PAGE = 25;
@@ -17,6 +17,7 @@ const Animes = (props) => {
   const [animes, setAnimes] = useState(undefined);
   const [page, setPage] = useState(1);
   const [numOfPage, setNumOfPage] = useState(undefined);
+  const [error, setError] = useState(false);
   let animePageContent;
 
   const changeCurrentPage = (page) => {
@@ -65,6 +66,7 @@ const Animes = (props) => {
           );
           getAnimes = getAnimes.concat(anime);
         } catch (error) {
+          setError(true);
           console.log(error);
         }
       }
@@ -88,17 +90,21 @@ const Animes = (props) => {
         );
       });
       setAnimes(getAnimes);
-      setNumOfPage(getAnimes.length / ANIMES_PER_PAGE);
-      console.log(getAnimes);
+      setNumOfPage(Math.floor(getAnimes.length / ANIMES_PER_PAGE));
+      console.log(Math.floor(getAnimes.length / ANIMES_PER_PAGE));
     };
 
     getAnimes();
   }, [props.info]);
 
   if (animes === undefined) {
-    animePageContent = <p>Loading Animes...</p>;
+    animePageContent = <p className="centeredWhite">Loading Animes...</p>;
   } else if (animes !== undefined && animes.length === 0) {
-    animePageContent = <p>No Animes were Found!</p>;
+    if (error) {
+      animePageContent = <Error message="Anime Server is currently Down!" />;
+    } else {
+      animePageContent = <Error message="No Animes Found!" />;
+    }
   } else {
     let currentAnimes = [];
     let starting;

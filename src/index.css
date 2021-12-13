@@ -29,3 +29,8 @@ code {
   color: white;
   cursor: pointer;
 }
+
+.centeredWhite{
+  text-align: center;
+  color: white;
+}
