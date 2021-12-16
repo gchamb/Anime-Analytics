@@ -19,7 +19,7 @@ const Anime = (props) => {
       <div className={classes.animePage}>
 
         <div className={classes.animeCard}>
-          <h1>{anime.title}</h1>;
+          <h1>{anime.title}</h1>
           <div className={classes.animeCardImage}>
             <img src={anime.image_url} alt="" />
           </div>

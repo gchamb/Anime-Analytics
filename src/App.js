@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Route, Switch, useHistory } from "react-router-dom";
 import Animes from "./components/pages/Animes";
 import Anime from "./components/pages/Anime";
+import PAF from "./components/pages/PAF";
 import Home from "./components/pages/Home";
 
 function App() {
@@ -10,7 +11,7 @@ function App() {
   const history = useHistory();
   const getGenreHandler = (genreInfo) => {
     setInfo(genreInfo);
-    history.push("/animes");
+    history.push("/paf/animes");
   };
   const liftAnimes = (animes) => {
     setLiftedAnimes(animes);
@@ -19,13 +20,16 @@ function App() {
   return (
     <Switch>
       <Route exact path="/">
-        <Home getGenreHandler={getGenreHandler} />
+        <Home />
       </Route>
-      <Route exact path="/animes">
-        <Animes info={info} liftAnimes={liftAnimes}/>
+      <Route exact path="/paf">
+        <PAF getGenreHandler={getGenreHandler} />
       </Route>
-      <Route path="/animes/:id">
-        <Anime animes={liftedAnimes}/>
+      <Route exact path="/paf/animes">
+        <Animes info={info} liftAnimes={liftAnimes} />
+      </Route>
+      <Route path="/paf/animes/:id">
+        <Anime animes={liftedAnimes} />
       </Route>
       <Route path="*">
         <p>Nothing Found Here</p>

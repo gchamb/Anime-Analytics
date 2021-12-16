@@ -123,13 +123,13 @@ const Animes = (props) => {
     animePageContent = (
       <div className={classes.animesFound}>
         <div className={classes.found}>
-          <h2>{animes.length}</h2>
+          <h2>{animes.length} Animes Found!</h2>
         </div>
         <div className={classes.animes}>
           {currentAnimes.map((anime, idx) => {
             return (
               <div className={classes.anime} key={idx}>
-                <Link to={`/animes/${idx}`} onClick={liftState}>
+                <Link to={`/paf/animes/${idx}`} onClick={liftState}>
                   <img src={anime.image_url} alt="anime" />
                   <p>{anime.title}</p>
                 </Link>

@@ -1,5 +1,7 @@
 import classes from "./AnimeLinks.module.css";
-import { replaceAll } from "../../utils/dicts";
+// import { replaceAll } from "../../utils/dicts";
+import mal from "../../images/mal.png";
+import planet from "../../images/planetAnime.png";
 
 const AnimeLinks = (props) => {
   const anime = props.animeName;
@@ -8,8 +10,12 @@ const AnimeLinks = (props) => {
 
   return (
     <div className={classes.animeLinks}>
-      <a href={props.url}></a>
-      <a href={planetAnime}></a>
+      <a href={props.url}>
+        <img src={mal} alt="" />
+      </a>
+      <a href={planetAnime}>
+        <img src={planet} alt=""/>
+      </a>
     </div>
   );
 };

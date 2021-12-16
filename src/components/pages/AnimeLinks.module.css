@@ -1,6 +1,16 @@
 .animeLinks {
   display: flex;
+  justify-content: center;
 }
 .animeLinks a {
   margin: 10px;
+  width: 5%;
+  border-radius: 50%;
+}
+
+.animeLinks a img {
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+  border: 3px solid #cf9fff;
 }

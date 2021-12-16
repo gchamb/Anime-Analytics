@@ -1,26 +1,34 @@
 .animesFound {
-    width: 100%;
+  width: 100%;
 }
-
-.animes{
-    width: 85%;
-    margin: auto;
+.found{
     text-align: center;
+    color: white;
+    font-size: 1.8em;
 }
 
-.anime{
-    background-color: #cf9fff;
-    width: 15%;
-    margin: 10px; 
-    padding: 10px;
-    border: 5px solid white;
-    border-radius: 15px;
-    display: inline-block;
-    font-size: 1.2vw;
+.animes {
+  width: 85%;
+  margin: auto;
+  text-align: center;
 }
 
+.anime {
+  background-color: #cf9fff;
+  width: 15%;
+  margin: 10px;
+  padding: 10px;
+  border: 5px solid white;
+  border-radius: 15px;
+  display: inline-block;
+  font-size: 1.2vw;
+}
+.anime a {
+  color: black;
+  text-decoration: none;
+}
 .anime img {
-    width: 100%;
-    height: auto;
-    border-radius: 15px;
+  width: 100%;
+  height: auto;
+  border-radius: 15px;
 }
