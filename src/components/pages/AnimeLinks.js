@@ -10,11 +10,11 @@ const AnimeLinks = (props) => {
 
   return (
     <div className={classes.animeLinks}>
-      <a href={props.url}>
+      <a href={props.url} target="_blank" rel="noreferrer">
         <img src={mal} alt="" />
       </a>
-      <a href={planetAnime}>
-        <img src={planet} alt=""/>
+      <a href={planetAnime} target="_blank" rel="noreferrer">
+        <img src={planet} alt="" />
       </a>
     </div>
   );

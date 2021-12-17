@@ -1,12 +1,31 @@
 .animesFound {
   width: 100%;
 }
-.found{
-    text-align: center;
-    color: white;
-    font-size: 1.8em;
+.found {
+  text-align: center;
+  color: white;
+  font-size: 1.8em;
 }
-
+.filters{
+  display: flex;
+  width: 80%;
+  margin: auto;
+  align-items:center;
+}
+.selectRandom{
+  margin-left: auto;
+}
+.episodeCount {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  color: #cf9fff;
+}
+.episodeCount select {
+  border: none;
+  padding: 5px;
+  border-radius: 15px;
+}
 .animes {
   width: 85%;
   margin: auto;
