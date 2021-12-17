@@ -1,7 +1,6 @@
 import classes from "./AnimeLinks.module.css";
-// import { replaceAll } from "../../utils/dicts";
-import mal from "../../images/mal.png";
-import planet from "../../images/planetAnime.png";
+import mal from "../../../images/mal.png";
+import planet from "../../../images/planetAnime.png";
 
 const AnimeLinks = (props) => {
   const anime = props.animeName;

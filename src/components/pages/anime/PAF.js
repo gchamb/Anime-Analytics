@@ -1,8 +1,9 @@
 import classes from "./PAF.module.css";
-import "../../index.css";
-import yuno from "../../images/yuno.jpg";
+import "../../../index.css";
+import yuno from "../../../images/yuno.jpg";
+import gasai from "../../../images/gasai.png";
 import { useState } from "react";
-import { genreIds } from "../../utils/dicts";
+import { genreIds } from "../../../utils/dicts";
 
 const PAF = (props) => {
   const genresKeys = Object.keys(genreIds);
@@ -54,6 +55,7 @@ const PAF = (props) => {
         </div>
         <h1>PAF!</h1>
       </div>
+
       <div className={classes.genres}>
         <p>Choose your genres</p>
         <select name="first" onChange={genreChangeHandler}>

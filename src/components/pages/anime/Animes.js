@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import Paginator from "../UI/Paginator";
+import Paginator from "../../UI/Paginator";
 import classes from "./Animes.module.css";
 import { Link, useHistory } from "react-router-dom";
-import Error from "./Error";
-import { pagesPerGenre, genreIds } from "../../utils/dicts";
-import "../../index.css";
+import Error from "../../UI/Error";
+import { pagesPerGenre, genreIds } from "../../../utils/dicts";
+import "../../../index.css";
 
 const jikan = require("jikanjs");
 const ANIMES_PER_PAGE = 25;
@@ -20,6 +20,14 @@ const Animes = (props) => {
     lessThan12: false,
     greaterThan12: false,
   });
+  const pagination = {
+    starting: page === 1 ? 0 : page * ANIMES_PER_PAGE,
+    ending:
+      page === 1
+        ? 0 + ANIMES_PER_PAGE
+        : page * ANIMES_PER_PAGE + ANIMES_PER_PAGE,
+  };
+
   let animePageContent;
   const history = useHistory();
 
@@ -36,9 +44,36 @@ const Animes = (props) => {
     });
   };
 
+  // paginate the correct animes for each page
+  const paginateAnimes = (currentAnimes) => {
+    for (
+      let i = pagination.starting;
+      i < pagination.ending && i < animes.length;
+      i++
+    ) {
+      currentAnimes.push(animes[i]);
+    }
+
+    if (episodeCount.greaterThan12 === true) {
+      currentAnimes = currentAnimes.filter((anime) => {
+        return anime.episodes >= 12;
+      });
+    }
+    if (episodeCount.lessThan12 === true) {
+      currentAnimes = currentAnimes.filter((anime) => {
+        return anime.episodes < 12;
+      });
+    }
+
+    return currentAnimes;
+  };
+
   // Lift all the animes the parent component
   const liftState = () => {
-    props.liftAnimes(animes);
+    // Will lift the appropriate animes based on filters
+    let currentAnimes = [];
+    currentAnimes = paginateAnimes(currentAnimes);
+    props.liftAnimes(currentAnimes);
   };
 
   // set random button clicked to true
@@ -148,35 +183,13 @@ const Animes = (props) => {
   } else {
     // Pagination
     let currentAnimes = [];
-    let starting;
-    let ending;
-    if (page === 1) {
-      starting = 0;
-    } else {
-      starting = page * ANIMES_PER_PAGE;
-    }
-
-    ending = starting + ANIMES_PER_PAGE;
-    for (let i = starting; i < ending && i < animes.length; i++) {
-      currentAnimes.push(animes[i]);
-    }
+    currentAnimes = paginateAnimes(currentAnimes);
 
     // Determining if any of the filters were triggered
     if (randomClicked) {
-      const randomNumber = Math.ceil(Math.random() * animes.length);
+      const randomNumber = Math.ceil(Math.random() * currentAnimes.length);
       liftState();
       history.push(`/paf/animes/${randomNumber}`);
-    }
-
-    if (episodeCount.greaterThan12 === true) {
-      currentAnimes = currentAnimes.filter((anime) => {
-        return anime.episodes >= 12;
-      });
-    }
-    if (episodeCount.lessThan12 === true) {
-      currentAnimes = currentAnimes.filter((anime) => {
-        return anime.episodes < 12;
-      });
     }
 
     // render to the screen with appropriate animes
