@@ -29,8 +29,30 @@ code {
   color: white;
   cursor: pointer;
 }
-
+.white{
+  color: white;
+}
+.pink{
+  color: #cf9fff;
+}
 .centeredWhite{
   text-align: center;
   color: white;
 }
+
+.centeredWhiteUnderlined{
+  text-align: center;
+  color: white;
+  text-decoration: underline;
+}
+
+.centeredPink{
+  text-align: center;
+  color: #cf9fff;
+}
+.centeredPinkUnderlined{
+  text-align: center;
+  color: #cf9fff;
+  text-decoration: underline;
+}
+

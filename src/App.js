@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Route, Switch, useHistory } from "react-router-dom";
-import Animes from "./components/pages/anime/Animes";
-import Anime from "./components/pages/anime/Anime";
-import PAF from "./components/pages/anime/PAF";
+import Animes from "./components/pages/paf/Animes";
+import Anime from "./components/pages/paf/Anime";
+import PAF from "./components/pages/paf/PAF";
 import Home from "./components/pages/home/Home";
 
 function App() {

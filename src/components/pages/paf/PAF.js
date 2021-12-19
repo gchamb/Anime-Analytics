@@ -1,7 +1,6 @@
 import classes from "./PAF.module.css";
 import "../../../index.css";
 import yuno from "../../../images/yuno.jpg";
-import gasai from "../../../images/gasai.png";
 import { useState } from "react";
 import { genreIds } from "../../../utils/dicts";
 

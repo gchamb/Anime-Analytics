@@ -1,3 +1,25 @@
 .dropdown {
+  display: inline-block;
+  position: relative;
+  text-align: center;
+  color: #cf9fff;
+}
 
+.dropdownContent {
+  display: none;
+  position: absolute;
+  background-color: #cf9fff;
+  border-radius: 15px;
+  padding: 5px;
+  border: 3px solid white;
+}
+
+.dropdownContent a {
+  color: white;
+  text-decoration: none;
+}
+
+.dropdown:hover .dropdownContent {
+  display: block;
+  min-width: 100px;
 }
