@@ -1,14 +1,45 @@
 import { useState } from "react";
-import { Route, Switch, useHistory } from "react-router-dom";
+import { Redirect, Route, Switch, useHistory } from "react-router-dom";
 import Animes from "./components/pages/paf/Animes";
 import Anime from "./components/pages/paf/Anime";
 import PAF from "./components/pages/paf/PAF";
 import Home from "./components/pages/home/Home";
+import Search from "./components/pages/search/Search";
+import SearchResults from "./components/pages/search/SearchResults";
+import SearchedAnime from "./components/pages/search/SearchedAnime";
+import List from "./components/pages/list/List";
+import Signup from "./components/pages/auth/Signup";
+import Login from "./components/pages/auth/Login";
+import authContext from "./context/auth-context";
+import Cookies from "universal-cookie";
+
+const cookies = new Cookies();
 
 function App() {
-  const [info, setInfo] = useState();
+  const [token, setToken] = useState(cookies.get("token"));
+  const [username, setUsername] = useState(cookies.get("username"));
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [info, setInfo] = useState(undefined);
   const [liftedAnimes, setLiftedAnimes] = useState();
   const history = useHistory();
+
+  // Will be used throughout the application to logout
+  const logoutHandler = () => {
+    cookies.remove("token");
+    cookies.remove("username")
+    setToken(undefined);
+    setIsLoggedIn(false);
+  };
+
+  const loginHandler = () => {
+    setIsLoggedIn(true);
+  };
+
+  // if the token is valid and isnt undefined then you should be loggedin
+  if (token !== undefined && isLoggedIn === false) {
+    loginHandler();
+  }
+
   const getGenreHandler = (genreInfo) => {
     setInfo(genreInfo);
     history.push("/paf/animes");
@@ -16,39 +47,78 @@ function App() {
   const liftAnimes = (animes) => {
     setLiftedAnimes(animes);
   };
+
   return (
-    <Switch>
-      <Route exact path="/">
-        <p>Home Page</p>
-      </Route>
-      <Route path="/signup">
-        <Home />
-      </Route>
-      <Route path="/login">
-        <Home />
-      </Route>
-      <Route path="/home">
-        <Home />
-      </Route>
-      <Route path="/search">
-        <p>Search</p>
-      </Route>
-      <Route path="/list">
-        <p>list</p>
-      </Route>
-      <Route exact path="/paf">
-        <PAF getGenreHandler={getGenreHandler} />
-      </Route>
-      <Route exact path="/paf/animes">
-        <Animes info={info} liftAnimes={liftAnimes} />
-      </Route>
-      <Route path="/paf/animes/:id">
-        <Anime animes={liftedAnimes} />
-      </Route>
-      <Route path="*">
-        <p>Nothing Found Here</p>
-      </Route>
-    </Switch>
+    <authContext.Provider
+      value={{
+        token: token,
+        username: username,
+        isLoggedIn: isLoggedIn,
+        onLogin: loginHandler,
+        onLogout: logoutHandler,
+        setToken: setToken,
+        setUser: setUsername,
+      }}
+    >
+      <Switch>
+        <Route exact path="/">
+          <p>Home Page</p>
+        </Route>
+        <Route path="/signup">
+          <Signup />
+        </Route>
+        <Route path="/login">
+          <Login />
+        </Route>
+        <Route path="/home">
+          {isLoggedIn ? <Home /> : <Redirect to="/login" />}
+        </Route>
+        <Route exact path="/search">
+          {isLoggedIn ? <Search /> : <Redirect to="/login" />}
+        </Route>
+        <Route exact path="/search/:result">
+          {isLoggedIn ? (
+            <SearchResults/>
+          ) : (
+            <Redirect to="/login" />
+          )}
+        </Route>
+        <Route exact path="/search/:name/:id">
+          {isLoggedIn ? (
+            <SearchedAnime animes={liftedAnimes} />
+          ) : (
+            <Redirect to="/login" />
+          )}
+        </Route>
+        <Route path="/list">
+          {isLoggedIn ? <List /> : <Redirect to="/login" />}
+        </Route>
+        <Route exact path="/paf">
+          {isLoggedIn ? (
+            <PAF getGenreHandler={getGenreHandler} />
+          ) : (
+            <Redirect to="/login" />
+          )}
+        </Route>
+        <Route exact path="/paf/animes">
+          {isLoggedIn ? (
+            <Animes info={info} liftAnimes={liftAnimes} />
+          ) : (
+            <Redirect to="/login" />
+          )}
+        </Route>
+        <Route path="/paf/animes/:id">
+          {isLoggedIn ? (
+            <Anime animes={liftedAnimes} />
+          ) : (
+            <Redirect to="/login" />
+          )}
+        </Route>
+        <Route path="*">
+          <p>Nothing Found Here</p>
+        </Route>
+      </Switch>
+    </authContext.Provider>
   );
 }
 

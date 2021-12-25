@@ -3,7 +3,7 @@ import Paginator from "../../UI/Paginator";
 import classes from "./Animes.module.css";
 import { Link, useHistory } from "react-router-dom";
 import Error from "../../UI/Error";
-import { pagesPerGenre, genreIds } from "../../../utils/dicts";
+import { pagesPerGenre, genreIds } from "../../../utils/util";
 import "../../../index.css";
 
 const jikan = require("jikanjs");
@@ -14,20 +14,22 @@ const Animes = (props) => {
   const [animes, setAnimes] = useState(undefined);
   const [page, setPage] = useState(1);
   const [numOfPage, setNumOfPage] = useState(undefined);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState({
+    status: false,
+    message: "",
+  });
   const [randomClicked, setRandomClicked] = useState(false);
   const [episodeCount, setEpisodeCount] = useState({
     lessThan12: false,
     greaterThan12: false,
   });
   const pagination = {
-    starting: page === 1 ? 0 : page * ANIMES_PER_PAGE,
+    starting: page === 1 ? 0 : (page - 1) * ANIMES_PER_PAGE,
     ending:
       page === 1
         ? 0 + ANIMES_PER_PAGE
-        : page * ANIMES_PER_PAGE + ANIMES_PER_PAGE,
+        : (page - 1) * ANIMES_PER_PAGE + ANIMES_PER_PAGE,
   };
-
   let animePageContent;
   const history = useHistory();
 
@@ -136,7 +138,10 @@ const Animes = (props) => {
           getAnimes = getAnimes.concat(anime);
         } catch (error) {
           console.log("error happened here");
-          setError(true);
+          setError({
+            status: true,
+            message: "Anime Server is temporarily not working!",
+          });
           console.log(error);
         }
       }
@@ -164,22 +169,26 @@ const Animes = (props) => {
       // set the state of filtered animes and number of animes
       if (getAnimes.length !== 0) {
         setAnimes(getAnimes);
-        setNumOfPage(Math.floor(getAnimes.length / ANIMES_PER_PAGE));
+        setNumOfPage(Math.round(getAnimes.length / ANIMES_PER_PAGE));
       }
     };
 
-    getAnimes();
+    if (props.info === undefined) {
+      setError({
+        status: true,
+        message: "No Animes Found!",
+      });
+    } else {
+      getAnimes();
+    }
   }, [props.info]);
 
+  console.log(props, error);
   // Conditional Rendering
-  if (animes === undefined) {
+  if (animes === undefined && error.status !== true) {
     animePageContent = <p className="centeredWhite">Loading Animes...</p>;
-  } else if (animes !== undefined && animes.length === 0) {
-    if (error) {
-      animePageContent = <Error message="Anime Server is currently Down!" />;
-    } else {
-      animePageContent = <Error message="No Animes Found!" />;
-    }
+  } else if (animes === undefined && error.status === true) {
+    animePageContent = <Error message={error.message} />;
   } else {
     // Pagination
     let currentAnimes = [];

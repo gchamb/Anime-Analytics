@@ -21,6 +21,10 @@
   color: white;
   text-decoration: none;
 }
+
+.activityContainer:hover{
+  opacity: 0.9;
+}
 .activity {
   width: 100%;
 }

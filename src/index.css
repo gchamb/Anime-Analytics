@@ -29,30 +29,87 @@ code {
   color: white;
   cursor: pointer;
 }
-.white{
+
+.btn2 {
+  border: none;
+  border-radius: 15px;
+  padding: 7px;
+  background-color: #282828;
+  color: white;
+  cursor: pointer;
+}
+
+.white {
   color: white;
 }
-.pink{
+.pink {
   color: #cf9fff;
 }
-.centeredWhite{
+.centeredWhite {
   text-align: center;
   color: white;
 }
 
-.centeredWhiteUnderlined{
+.centeredWhiteUnderlined {
   text-align: center;
   color: white;
   text-decoration: underline;
 }
 
-.centeredPink{
+.centeredPink {
   text-align: center;
   color: #cf9fff;
 }
-.centeredPinkUnderlined{
+.centeredPinkUnderlined {
   text-align: center;
   color: #cf9fff;
   text-decoration: underline;
 }
+.centeredError {
+  color: rgb(175, 0, 0);
+  text-align: center;
+  font-size: x-small;
+}
+.heading h1 {
+  font-size: 2.5em;
+  color: #cf9fff;
+  text-align: center;
+}
 
+.selectorContainer {
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+  background-color: #cf9fff;
+  color: #282828;
+  border: 1px solid white;
+}
+.form {
+  background-color: #cf9fff;
+  width: 50%;
+  margin: auto;
+  padding: 5px;
+  border-radius: 15px;
+  border: 2px solid white;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  margin: 2px;
+}
+.formGroup input[type="text"],
+.formGroup input[type="email"],
+.formGroup input[type="password"] {
+  border: none;
+  border-radius: 5px;
+  padding: 3px;
+}
+.formGroup label {
+  font-size: small;
+}
+
+.formButtonGroup {
+  margin: 5px;
+  text-align: center;
+}

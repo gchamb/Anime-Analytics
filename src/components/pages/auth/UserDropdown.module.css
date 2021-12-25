@@ -19,6 +19,7 @@
   text-decoration: none;
 }
 
+
 .dropdown:hover .dropdownContent {
   display: block;
   min-width: 100px;

@@ -7,12 +7,15 @@ import ratings from "../../../images/ratings.png";
 import stats from "../../../images/stats.png";
 import "../../../index.css";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import authContext from "../../../context/auth-context";
 
 const Home = () => {
+  const auth = useContext(authContext);
   return (
     <div className={classes.home}>
       <div className={classes.homeTop}>
-        <h2 className="white">Welcome Home Don!</h2>
+        <h2 className="white">Welcome Home {auth.username}!</h2>
         <UserDropdown />
       </div>
       <h3 className="centeredWhiteUnderlined">Activities</h3>

@@ -1,0 +1,35 @@
+.searchResults {
+  width: 80%;
+  margin: auto;
+}
+.result {
+  display: flex;
+  margin: 5px;
+  background-color: #cf9fff;
+  align-items: center;
+  border: 3px solid white;
+  border-radius: 15px;
+  padding: 5px;
+  justify-content: space-between;
+  text-decoration: none;
+  color: black;
+}
+
+.resultImg {
+  width: 25%;
+  text-align: center;
+  margin-right: 5px;
+}
+.resultImg img {
+  width: 100%;
+  max-width: 80px;
+  height: auto;
+  border-radius: 15px;
+}
+
+.description {
+  margin: auto;
+}
+.score {
+  margin-left: auto;
+}

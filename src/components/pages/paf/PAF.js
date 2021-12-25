@@ -2,7 +2,7 @@ import classes from "./PAF.module.css";
 import "../../../index.css";
 import yuno from "../../../images/yuno.jpg";
 import { useState } from "react";
-import { genreIds } from "../../../utils/dicts";
+import { genreIds } from "../../../utils/util";
 
 const PAF = (props) => {
   const genresKeys = Object.keys(genreIds);
@@ -43,7 +43,8 @@ const PAF = (props) => {
     }
   };
 
-  const pushPageHandler = () => {
+  const pushPageHandler = (e) => {
+    e.preventDefault();
     props.getGenreHandler(genresChosen);
   };
   return (
@@ -55,7 +56,7 @@ const PAF = (props) => {
         <h1>PAF!</h1>
       </div>
 
-      <div className={classes.genres}>
+      <form className={classes.genres} onSubmit={pushPageHandler}>
         <p>Choose your genres</p>
         <select name="first" onChange={genreChangeHandler}>
           {genresKeys.map((genre) => (
@@ -72,12 +73,10 @@ const PAF = (props) => {
             <option key={genre}>{genre}</option>
           ))}
         </select>
-      </div>
-      <div className={classes.btnDiv}>
-        <button className="btn" onClick={pushPageHandler}>
-          Find Animes!
-        </button>
-      </div>
+        <div className={classes.btnDiv}>
+          <input className="btn" type="submit" value="Find Animes!" />
+        </div>
+      </form>
     </div>
   );
 };

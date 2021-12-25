@@ -1,8 +1,3 @@
-exports.replaceAll = function (search, replacement) {
-  var target = this;
-  return target.replace(new RegExp(search, "g"), replacement);
-};
-
 exports.genreIds = {
   Action: 1,
   Adventure: 2,
@@ -81,4 +76,20 @@ exports.pagesPerGenre = {
   "Super Power": 7,
   Supernatural: 26,
   Vampire: 2,
+};
+
+exports.endpoints = {
+  watching: {
+    get: "http://localhost:5000/watching&page=",
+    any: "http://localhost:5000/watching",
+  },
+  plantowatch: {
+    get: "http://localhost:5000/plan&page=",
+    any: "http://localhost:5000/plan",
+  },
+  stat: "http://localhost:5000/stats",
+  rating: {
+    get: "http://localhost:5000/rating&page=",
+    any: "http://localhost:5000/rating",
+  },
 };
