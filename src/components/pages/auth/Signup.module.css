@@ -1,7 +1,7 @@
 .signup {
   position: relative;
   width: 90%;
-  height: 95vh;
+  height: 96.5vh;
   margin: auto;
 }
 .pageImg {
@@ -15,5 +15,26 @@
 .pageImg img {
   width: 100%;
   height: 100%;
-  
+}
+@media only screen and (min-width: 1024px) and (max-height: 1366px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 1.5) {
+  .pageImg {
+    width: 60%;
+  }
+}
+@media (min-device-width: 1024) and (max-device-height: 600) {
+  .pageImg {
+    width: 30%;
+  }
+}
+@media only screen and (max-width: 760px),
+  (min-device-width: 768px) and (max-device-width: 1023px) {
+  .pageImg {
+    width: 60%;
+  }
+}
+
+@media (max-width: 823px) and (orientation: landscape){
+  .pageImg {
+    width: 20%;
+  }
 }

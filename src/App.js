@@ -12,6 +12,12 @@ import Signup from "./components/pages/auth/Signup";
 import Login from "./components/pages/auth/Login";
 import authContext from "./context/auth-context";
 import Cookies from "universal-cookie";
+import Rating from "./components/pages/ratings/Rating";
+import Stats from "./components/pages/stats/Stats";
+import ShareRating from "./components/pages/ratings/ShareRating";
+import Recovery from "./components/pages/auth/Recovery";
+import ResetPassword from "./components/pages/auth/ResetPassword";
+import Welcome from "./components/pages/welcome/Welcome";
 
 const cookies = new Cookies();
 
@@ -26,7 +32,7 @@ function App() {
   // Will be used throughout the application to logout
   const logoutHandler = () => {
     cookies.remove("token");
-    cookies.remove("username")
+    cookies.remove("username");
     setToken(undefined);
     setIsLoggedIn(false);
   };
@@ -62,13 +68,22 @@ function App() {
     >
       <Switch>
         <Route exact path="/">
-          <p>Home Page</p>
+          <Welcome />
         </Route>
         <Route path="/signup">
           <Signup />
         </Route>
         <Route path="/login">
           <Login />
+        </Route>
+        <Route exact path="/recovery">
+          <Recovery />
+        </Route>
+        <Route exact path="/recovery/:token">
+          <ResetPassword />
+        </Route>
+        <Route path="/share/:token">
+          <ShareRating />
         </Route>
         <Route path="/home">
           {isLoggedIn ? <Home /> : <Redirect to="/login" />}
@@ -77,11 +92,7 @@ function App() {
           {isLoggedIn ? <Search /> : <Redirect to="/login" />}
         </Route>
         <Route exact path="/search/:result">
-          {isLoggedIn ? (
-            <SearchResults/>
-          ) : (
-            <Redirect to="/login" />
-          )}
+          {isLoggedIn ? <SearchResults /> : <Redirect to="/login" />}
         </Route>
         <Route exact path="/search/:name/:id">
           {isLoggedIn ? (
@@ -113,6 +124,12 @@ function App() {
           ) : (
             <Redirect to="/login" />
           )}
+        </Route>
+        <Route exact path="/ratings">
+          {isLoggedIn ? <Rating /> : <Redirect to="/login" />}
+        </Route>
+        <Route exact path="/stats">
+          {isLoggedIn ? <Stats /> : <Redirect to="/login" />}
         </Route>
         <Route path="*">
           <p>Nothing Found Here</p>

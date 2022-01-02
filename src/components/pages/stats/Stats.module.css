@@ -1,0 +1,39 @@
+.animeStatsImg {
+  width: 7%;
+  margin: auto;
+}
+.animeStatsImg img {
+  width: 100%;
+  height: auto;
+  background-color: #cf9fff;
+  border-radius: 50%;
+  border: 3px solid white;
+}
+.stats {
+  width: 85%;
+  margin: auto;
+  text-align: center;
+}
+.charts {
+  width: 100%;
+  display: flex;
+}
+.chart {
+  width: 50%;
+  height: auto;
+  margin: auto;
+}
+
+@media only screen and (max-width: 760px),
+  (min-device-width: 768px) and (max-device-width: 1366px) {
+    .animeStatsImg{
+      width: 15%;
+    }
+    .charts{
+      flex-direction: column;
+    }
+    .chart{
+      width: 100%;
+    }
+}
+

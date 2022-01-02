@@ -5,6 +5,7 @@ import "../../../index.css";
 import { useHistory } from "react-router-dom";
 
 const Search = () => {
+  document.title = "Search!";
   const [searchValue, setSearchValue] = useState("");
   const history = useHistory();
 
@@ -26,7 +27,7 @@ const Search = () => {
         <div className={classes.searchImage}>
           <img src={searchPic} alt="yuno gasai" />
         </div>
-        <h1>Search!</h1>
+        <h2>Search!</h2>
       </div>
       <div className={classes.searchBar}>
         <h3>Enter Anime!</h3>

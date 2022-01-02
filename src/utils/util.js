@@ -81,15 +81,26 @@ exports.pagesPerGenre = {
 exports.endpoints = {
   watching: {
     get: "http://localhost:5000/watching&page=",
+    delete: "http://localhost:5000/watching/",
     any: "http://localhost:5000/watching",
   },
   plantowatch: {
     get: "http://localhost:5000/plan&page=",
+    delete: "http://localhost:5000/plan/",
     any: "http://localhost:5000/plan",
   },
   stat: "http://localhost:5000/stats",
   rating: {
     get: "http://localhost:5000/rating&page=",
     any: "http://localhost:5000/rating",
+    deletepatch: "http://localhost:5000/rating/",
+    share: "http://localhost:5000/share",
+    shared: "http://localhost:5000/shared/",
+  },
+  auth: {
+    postSignup: "http://localhost:5000/signup",
+    postLogin: "http://localhost:5000/login",
+    postRecovery: "http://localhost:5000/recovery",
+    patchReset: "http://localhost:5000/reset/",
   },
 };

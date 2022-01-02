@@ -4,127 +4,90 @@ import list from "../../../images/list.png";
 import AnimeOptions from "../../UI/AnimeOptions";
 import Paginator from "../../UI/Paginator";
 import authContext from "../../../context/auth-context";
-
-const watching = [
-  {
-    image_url:
-      "https://m.media-amazon.com/images/M/MV5BN2E2OTgzODktMjBhYy00MjJjLWI0OTgtNGYxOGNhMWMxOWE4XkEyXkFqcGdeQXVyMzgxODM4NjM@._V1_FMjpg_UY720_.jpg",
-    title: "Tokyo Ghoul",
-  },
-  {
-    image_url:
-      "https://m.media-amazon.com/images/M/MV5BN2E2OTgzODktMjBhYy00MjJjLWI0OTgtNGYxOGNhMWMxOWE4XkEyXkFqcGdeQXVyMzgxODM4NjM@._V1_FMjpg_UY720_.jpg",
-    title: "Tokyo Ghoul",
-  },
-  {
-    image_url:
-      "https://m.media-amazon.com/images/M/MV5BN2E2OTgzODktMjBhYy00MjJjLWI0OTgtNGYxOGNhMWMxOWE4XkEyXkFqcGdeQXVyMzgxODM4NjM@._V1_FMjpg_UY720_.jpg",
-    title: "Tokyo Ghoul",
-  },
-  {
-    image_url:
-      "https://m.media-amazon.com/images/M/MV5BN2E2OTgzODktMjBhYy00MjJjLWI0OTgtNGYxOGNhMWMxOWE4XkEyXkFqcGdeQXVyMzgxODM4NjM@._V1_FMjpg_UY720_.jpg",
-    title: "Tokyo Ghoul",
-  },
-  {
-    image_url:
-      "https://m.media-amazon.com/images/M/MV5BN2E2OTgzODktMjBhYy00MjJjLWI0OTgtNGYxOGNhMWMxOWE4XkEyXkFqcGdeQXVyMzgxODM4NjM@._V1_FMjpg_UY720_.jpg",
-    title: "Tokyo Ghoul",
-  },
-];
-
-const plan = [
-  {
-    image_url:
-      "https://m.media-amazon.com/images/M/MV5BZmQ5NGFiNWEtMmMyMC00MDdiLTg4YjktOGY5Yzc2MDUxMTE1XkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_FMjpg_UX680_.jpg",
-    title: "Naruto",
-  },
-  {
-    image_url:
-      "https://m.media-amazon.com/images/M/MV5BZmQ5NGFiNWEtMmMyMC00MDdiLTg4YjktOGY5Yzc2MDUxMTE1XkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_FMjpg_UX680_.jpg",
-    title: "Naruto",
-  },
-  {
-    image_url:
-      "https://m.media-amazon.com/images/M/MV5BZmQ5NGFiNWEtMmMyMC00MDdiLTg4YjktOGY5Yzc2MDUxMTE1XkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_FMjpg_UX680_.jpg",
-    title: "Naruto",
-  },
-  {
-    image_url:
-      "https://m.media-amazon.com/images/M/MV5BZmQ5NGFiNWEtMmMyMC00MDdiLTg4YjktOGY5Yzc2MDUxMTE1XkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_FMjpg_UX680_.jpg",
-    title: "Naruto",
-  },
-  {
-    image_url:
-      "https://m.media-amazon.com/images/M/MV5BZmQ5NGFiNWEtMmMyMC00MDdiLTg4YjktOGY5Yzc2MDUxMTE1XkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_FMjpg_UX680_.jpg",
-    title: "Naruto",
-  },
-  {
-    image_url:
-      "https://m.media-amazon.com/images/M/MV5BZmQ5NGFiNWEtMmMyMC00MDdiLTg4YjktOGY5Yzc2MDUxMTE1XkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_FMjpg_UX680_.jpg",
-    title: "Naruto",
-  },
-];
+import { endpoints } from "../../../utils/util";
 
 const axios = require("axios");
 const List = () => {
-  const [animeList, setAnimeList] = useState();
+  document.title = "List!";
+  const [animeList, setAnimeList] = useState([]);
+  const [paginator, setPaginator] = useState({
+    page: 1,
+    numOfPages: 0,
+  });
   const [listOption, setListOption] = useState({
     option: "Watching",
-    url: "http://localhost:5000/",
+    url: `${endpoints.watching.get}`,
   });
+  const [optionClicked, setOptionClicked] = useState(false);
   const auth = useContext(authContext);
+
+  const nextPage = () => {
+    setPaginator((preValue) => {
+      return { page: preValue.page + 1, numOfPages: preValue.numOfPages };
+    });
+  };
+  const prevPage = () => {
+    setPaginator((preValue) => {
+      return { page: preValue.page - 1, numOfPages: preValue.numOfPages };
+    });
+  };
+
   const listOptionChangeHandler = (e) => {
     if (e.target.value === "Watching") {
       setListOption({
         option: "Watching",
-        url: "http://localhost:5000/",
+        url: `${endpoints.watching.get}`,
       });
     } else {
       setListOption({
         option: "Plan To Watch",
-        url: "http://localhost:5000/",
+        url: `${endpoints.plantowatch.get}`,
       });
     }
   };
-  const listAnimeOptionHandler = (e) => {
-    const option = e.target.value;
-    switch (option) {
-      case "Add to Watching":
-        // console.log("watching " + props.anime.title);
-        break;
-      case "Add to Plan To Watch":
-        // console.log("plan to watch " + props.anime.title);
-        break;
-      case "Rate it":
-        // console.log("rating " + props.anime.title);
-        break;
-      case "Delete":
-        // console.log("delete " + props.anime.title);
-        break;
-      default:
-        console.log("error");
-    }
+  const optionClickedHandler = (bool) => {
+    setOptionClicked((prev) => {
+      return prev === true ? false : true;
+    });
   };
   useEffect(() => {
     const getAnimeList = async () => {
-      const { data } = await axios.get("http://localhost:5000/list", {
+      const { data } = await axios.get(listOption.url + paginator.page, {
         headers: {
           Authorization: "Bearer " + auth.token,
         },
       });
+      setAnimeList(
+        listOption.option === "Watching"
+          ? data[listOption.option.toLowerCase()]
+          : data[listOption.option.split(" ").join("").toLowerCase()]
+      );
       console.log(data);
+      setPaginator((prev) => {
+        return {
+          ...prev,
+          numOfPages: data.pages,
+        };
+      });
     };
-  }, [listOption.url, listAnimeOptionHandler, auth.token]);
+    getAnimeList();
+    console.log(paginator);
+  }, [
+    listOption.url,
+    auth.token,
+    listOption.option,
+    paginator.page,
+    optionClicked,
+  ]);
+
   return (
     <div className={classes.animeList}>
       <div className="heading">
         <div className={classes.animeListImg}>
           <img src={list} alt="" />
         </div>
-        <h1>Watch List!</h1>
+        <h2>Watch List!</h2>
       </div>
-
       <ul className={classes.list}>
         <div className={classes.options}>
           <button
@@ -151,42 +114,46 @@ const List = () => {
           </button>
         </div>
         {listOption.option === "Watching" &&
-          watching.map((anime, idx) => {
+          animeList.map((anime, idx) => {
             return (
-              <li className={classes.listItem} key={idx}>
+              <li className={classes.listItem} key={anime.name}>
                 <div className={classes.listImg}>
-                  <img src={anime.image_url} alt="" />
+                  <img src={anime.imageUrl} alt="" />
                 </div>
-                <div className={classes.listTitle}>{anime.title}</div>
+                <div className={classes.listTitle}>{anime.name}</div>
 
                 <AnimeOptions
                   location={listOption.option}
                   anime={anime}
-                  animeOptionHandler={listAnimeOptionHandler}
+                  optionClickedHandler={optionClickedHandler}
                 />
               </li>
             );
           })}
 
         {listOption.option === "Plan To Watch" &&
-          plan.map((anime, idx) => {
+          animeList.map((anime, idx) => {
             return (
-              <li className={classes.listItem} key={idx}>
+              <li className={classes.listItem} key={anime.name}>
                 <div className={classes.listImg}>
-                  <img src={anime.image_url} alt="" />
+                  <img src={anime.imageUrl} alt="" />
                 </div>
-                <div className={classes.listTitle}>{anime.title}</div>
+                <div className={classes.listTitle}>{anime.name}</div>
 
-                <AnimeOptions location={listOption.option} anime={anime} />
+                <AnimeOptions
+                  location={listOption.option}
+                  anime={anime}
+                  optionClickedHandler={optionClickedHandler}
+                />
               </li>
             );
           })}
-        {/* <Paginator
-          pages={numOfPage}
-          currentPage={page}
-          nextPage={incrementPage}
-          prevPage={decrementPage}
-        /> */}
+        <Paginator
+          pages={paginator.numOfPages}
+          currentPage={paginator.page}
+          nextPage={nextPage}
+          prevPage={prevPage}
+        />
       </ul>
     </div>
   );

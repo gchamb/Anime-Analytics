@@ -2,9 +2,10 @@ import classes from "./Login.module.css";
 import "../../../index.css";
 import yuno from "../../../images/login.png";
 import { useContext, useReducer, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import authContext from "../../../context/auth-context";
 import Cookies from "universal-cookie";
+import { endpoints } from "../../../utils/util";
 
 const axios = require("axios");
 const cookies = new Cookies();
@@ -47,6 +48,7 @@ const loginReducer = (state, data) => {
   };
 };
 const Login = () => {
+  document.title = "Login!";
   const [login, dispatchlogin] = useReducer(loginReducer, {
     username: "",
     password: "",
@@ -94,7 +96,7 @@ const Login = () => {
       password: login.password,
     };
     try {
-      const { data } = await axios.post("http://localhost:5000/login", info);
+      const { data } = await axios.post(endpoints.auth.postLogin, info);
       const date = new Date();
       date.setHours(date.getHours() + 1);
 
@@ -138,6 +140,9 @@ const Login = () => {
             onChange={passwordHandler}
             value={login.password}
           />
+        </div>
+        <div className="forgotPass">
+          <Link to="/recovery">Forgot Password?</Link>
         </div>
         <div className="formButtonGroup">
           <input type="submit" value="Login" className="btn2" />

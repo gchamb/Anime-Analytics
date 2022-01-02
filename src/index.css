@@ -29,6 +29,22 @@ code {
   color: white;
   cursor: pointer;
 }
+.btnSmaller {
+  border: none;
+  border-radius: 15px;
+  padding: 3px;
+  background-color: white;
+  color: #282828;
+  cursor: pointer;
+}
+.btnSmaller:hover {
+  border: none;
+  border-radius: 15px;
+  padding: 3px;
+  background-color: #cf9fff;
+  color: white;
+  cursor: pointer;
+}
 
 .btn2 {
   border: none;
@@ -37,6 +53,32 @@ code {
   background-color: #282828;
   color: white;
   cursor: pointer;
+}
+.btn3 {
+  border: none;
+  border-radius: 15px;
+  padding: 3px;
+  background-color: #282828;
+  color: white;
+  cursor: pointer;
+  margin:2px;
+  font-size: 0.7em;
+}
+.centered{
+  text-align: center;
+}
+.linkBtn{
+  margin: 5px;
+  text-decoration: none;
+  background-color: white;
+  padding: 5px;
+  color:#282828;
+  border-radius:10px
+}
+
+.linkBtn:hover{
+  background-color: #cf9fff ;
+  color: white;
 }
 
 .white {
@@ -70,10 +112,11 @@ code {
   text-align: center;
   font-size: x-small;
 }
-.heading h1 {
-  font-size: 2.5em;
-  color: #cf9fff;
+.heading{
   text-align: center;
+}
+.heading h2 {
+  color: #cf9fff;
 }
 
 .selectorContainer {
@@ -112,4 +155,15 @@ code {
 .formButtonGroup {
   margin: 5px;
   text-align: center;
+}
+.forgotPass{
+  text-align: center;
+}
+.forgotPass a{
+  text-decoration: none;
+  font-size: xx-small;
+  color: white;
+}
+.forgotPass a:hover{
+  color: #282828;
 }

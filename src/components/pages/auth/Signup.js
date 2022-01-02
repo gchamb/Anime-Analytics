@@ -3,6 +3,7 @@ import "../../../index.css";
 import yuno from "../../../images/signup.png";
 import { useReducer, useState } from "react";
 import { useHistory } from "react-router-dom";
+import { endpoints } from "../../../utils/util";
 
 const axios = require("axios");
 // dispatch function for useReducer
@@ -59,6 +60,7 @@ const signUpReducer = (state, data) => {
 };
 
 const Signup = () => {
+  document.title = "Sign Up!";
   const [signUp, dispatchSignup] = useReducer(signUpReducer, {
     username: "",
     email: "",
@@ -114,7 +116,7 @@ const Signup = () => {
       password: signUp.password,
     };
     try {
-      const { data } = await axios.post("http://localhost:5000/signup", info);
+      const { data } = await axios.post(endpoints.auth.postSignup, info);
       console.log(data);
       history.push("/login");
     } catch (err) {

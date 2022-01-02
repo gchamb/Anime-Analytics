@@ -1,5 +1,4 @@
 import classes from "./Home.module.css";
-import UserDropdown from "../auth/UserDropdown";
 import search from "../../../images/search.png";
 import list from "../../../images/list.png";
 import paf from "../../../images/paf.png";
@@ -11,16 +10,18 @@ import { useContext } from "react";
 import authContext from "../../../context/auth-context";
 
 const Home = () => {
+  document.title = "Home!";
   const auth = useContext(authContext);
   return (
     <div className={classes.home}>
       <div className={classes.homeTop}>
         <h2 className="white">Welcome Home {auth.username}!</h2>
-        <UserDropdown />
+        <Link className="linkBtn" onClick={auth.onLogout}>Logout!</Link>
       </div>
       <h3 className="centeredWhiteUnderlined">Activities</h3>
 
       <div className={classes.homeActivities}>
+
         <Link className={classes.activityContainer} to="/paf">
           <div className={classes.activity}>
             <img src={paf} alt="" />

@@ -5,6 +5,7 @@ import { useState } from "react";
 import { genreIds } from "../../../utils/util";
 
 const PAF = (props) => {
+  document.title = "PAF!";
   const genresKeys = Object.keys(genreIds);
   const [genresChosen, setGenresChosen] = useState({
     first: "Action",
