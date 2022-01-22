@@ -62,7 +62,6 @@ const List = () => {
           ? data[listOption.option.toLowerCase()]
           : data[listOption.option.split(" ").join("").toLowerCase()]
       );
-      console.log(data);
       setPaginator((prev) => {
         return {
           ...prev,
@@ -71,7 +70,7 @@ const List = () => {
       });
     };
     getAnimeList();
-    console.log(paginator);
+
   }, [
     listOption.url,
     auth.token,

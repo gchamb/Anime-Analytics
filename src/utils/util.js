@@ -89,7 +89,7 @@ exports.endpoints = {
     delete: "http://localhost:5000/plan/",
     any: "http://localhost:5000/plan",
   },
-  stat: "http://localhost:5000/stats",
+  stat: "http://localhost:5000/stats&year=",
   rating: {
     get: "http://localhost:5000/rating&page=",
     any: "http://localhost:5000/rating",

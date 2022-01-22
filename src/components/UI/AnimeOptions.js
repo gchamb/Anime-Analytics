@@ -29,35 +29,39 @@ const AnimeOptions = (props) => {
     });
     if (props.location === "paf") {
       animeData = {
-        rate: rating,
+        rate: rating.rate,
+        date: rating.date,
         name: props.anime.title,
         genres: genres,
-        episodes: props.anime.episodes,
-        yearReleased: props.anime.airing_start.substring(0, 4),
+        episodes: props.anime.episodes === null ? 0 : props.anime.episodes,
+        yearReleased: props.anime.airing_start === null
+            ? null
+            : props.anime.airing_start.substring(0, 4),
         studio:
           props.anime.producers.length === 0
-            ? "NULL"
+            ? null
             : props.anime.producers[0].name,
         imageUrl: props.anime.image_url,
       };
     } else if (props.location === "search") {
       animeData = {
-        rate: rating,
+        rate: rating.rate,
+        date:rating.date,
         name: props.anime.title,
         genres: genres,
         episodes: props.anime.episodes === null ? 0 : props.anime.episodes,
         yearReleased:
           props.anime.aired.from === null
-            ? "NULL"
+            ? null
             : props.anime.aired.from.substring(0, 4),
         studio:
           props.anime.studios.length === 0
-            ? "NULL"
+            ? null
             : props.anime.studios[0].name,
         imageUrl: props.anime.image_url,
       };
     } else {
-      animeData = { ...props.anime, rate: rating };
+      animeData = { ...props.anime, rate: rating.rate, date:rating.date };
     }
 
     await axios.post(endpoints.rating.any, animeData, {
@@ -77,15 +81,19 @@ const AnimeOptions = (props) => {
     const genres = props.anime.genres.map((a) => {
       return a.name;
     });
+   
     if (props.location === "paf") {
       animeData = {
         name: props.anime.title,
         genres: genres,
-        episodes: props.anime.episodes,
-        yearReleased: props.anime.airing_start.substring(0, 4),
+        episodes: props.anime.episodes === null ? 0 : props.anime.episodes,
+        yearReleased:
+          props.anime.airing_start === null
+            ? null
+            : props.anime.airing_start.substring(0, 4),
         studio:
           props.anime.producers.length === 0
-            ? "NULL"
+            ? null
             : props.anime.producers[0].name,
         imageUrl: props.anime.image_url,
       };
@@ -96,11 +104,11 @@ const AnimeOptions = (props) => {
         episodes: props.anime.episodes === null ? 0 : props.anime.episodes,
         yearReleased:
           props.anime.aired.from === null
-            ? "NULL"
+            ? null
             : props.anime.aired.from.substring(0, 4),
         studio:
           props.anime.studios.length === 0
-            ? "NULL"
+            ? null
             : props.anime.studios[0].name,
         imageUrl: props.anime.image_url,
       };

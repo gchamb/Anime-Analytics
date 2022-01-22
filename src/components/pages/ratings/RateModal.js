@@ -14,17 +14,39 @@ const ModalOverlay = (props) => {
 };
 
 const RateModal = (props) => {
+  const currentDate = new Date();
   const [rating, setRating] = useState(0);
+  const [date, setDate] = useState(
+    currentDate.getMonth() + 1 < 10 && currentDate.getDay() < 10
+      ? currentDate.getFullYear() +
+          "-0" +
+          (currentDate.getMonth()+1) +
+          "-0" +
+          currentDate.getDay()
+      : currentDate.getFullYear() +
+          "-" +
+          (currentDate.getMonth()+1) +
+          "-" +
+          currentDate.getDay()
+  );
   const stars = [];
 
   function starChangeHandler(e) {
     const rating = e.target.id;
     setRating(rating);
   }
-  function submitRatingHanlder() {
-    props.removeModal();
-    props.submitRating(+rating);
+  function dateChangeHandler(e) {
+    setDate(e.target.value);
   }
+  function submitRatingHanlder() {
+    const rate = {
+      rate:+rating,
+      date: date
+    }
+    props.removeModal();
+    props.submitRating(rate);
+  }
+  console.log(date);
   for (let i = 1; i <= 5; i++) {
     if (i <= rating) {
       stars.push(
@@ -49,6 +71,30 @@ const RateModal = (props) => {
             <h2>{props.animeName}</h2>
           </div>
           <div className={classes.rating}>{stars}</div>
+          {!props.noUpdate && (
+            <div>
+              <input
+                type="date"
+                value={date}
+                onChange={dateChangeHandler}
+                className={classes.date}
+                max={
+                  currentDate.getMonth() + 1 < 10 && currentDate.getDay() < 10
+                    ? currentDate.getFullYear() +
+                      "-0" +
+                      (currentDate.getMonth() + 1) +
+                      "-0" +
+                      currentDate.getDay()
+                    : currentDate.getFullYear() +
+                      "-" +
+                      (currentDate.getMonth() + 1) +
+                      "-" +
+                      currentDate.getDay()
+                }
+              />
+            </div>
+          )}
+
           <div className={classes.buttons}>
             <button onClick={props.removeModal} className="btn2">
               Close

@@ -14,7 +14,7 @@ import rate from "../../../images/ratings.png";
 
 const axios = require("axios");
 const ShareRating = () => {
-  document.title = "Login!";
+  document.title = "Shared!";
   const params = useParams();
   const [ratings, setRatings] = useState(undefined);
   const [paginator, setPaginator] = useState({

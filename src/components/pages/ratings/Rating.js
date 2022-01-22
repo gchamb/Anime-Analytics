@@ -149,6 +149,7 @@ const Rating = (props) => {
             removeModal={removeUpdateModal}
             animeName={update.name}
             submitRating={submitRating}
+            noUpdate={true}
           />
         )}
         <div className="heading">

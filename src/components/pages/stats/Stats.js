@@ -13,19 +13,33 @@ const axios = require("axios");
 const Stats = () => {
   document.title = "Stats!";
   const [data, setData] = useState();
+  const [statYear, setStatYear] = useState(null);
+  const [years, setYears] = useState([]);
   const auth = useContext(authContext);
   let content;
   useEffect(() => {
     const getData = async () => {
-      const { data } = await axios.get(endpoints.stat, {
+      const { data } = await axios.get(endpoints.stat + statYear, {
         headers: {
           Authorization: "Bearer " + auth.token,
         },
       });
       setData(data);
+      if (statYear === null) {
+        setYears(data.years);
+      }
     };
     getData();
-  }, [auth.token]);
+  }, [auth.token, statYear]);
+
+  const statYearHandler = (e) => {
+    if (e.target.value === "All"){
+      setStatYear(null)
+      return;
+    }
+    setStatYear(e.target.value);
+  };
+
   if (data === undefined) {
     content = <p className="centeredWhite">Loading...</p>;
   } else if (data.data) {
@@ -48,6 +62,15 @@ const Stats = () => {
             <img src={stats} alt="" />
           </div>
           <h2>Stats!</h2>
+        </div>
+        <div className={classes.years}>
+          <select onChange={statYearHandler}>
+            <option>All</option>
+            {years.length > 0 &&
+              years.sort().map((year,idx) => {
+                return <option key={idx}>{year}</option>;
+              })}
+          </select>
         </div>
         <div className={classes.charts}>
           <div className={classes.chart}>

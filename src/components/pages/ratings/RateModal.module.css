@@ -33,3 +33,10 @@
 .buttons button {
   margin: 3px;
 }
+
+.date{
+  border: none;
+  padding: 5px;
+  margin: 2px;
+  border-radius: 5px;
+}
