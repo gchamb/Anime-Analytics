@@ -17,7 +17,8 @@ import Stats from "./components/pages/stats/Stats";
 import ShareRating from "./components/pages/ratings/ShareRating";
 import Recovery from "./components/pages/auth/Recovery";
 import ResetPassword from "./components/pages/auth/ResetPassword";
-import Welcome from "./components/pages/welcome/Welcome";
+import Discover from "./components/pages/discover/Discover";
+import Browse from "./components/pages/browse/Browse";
 
 const cookies = new Cookies();
 
@@ -68,7 +69,10 @@ function App() {
     >
       <Switch>
         <Route exact path="/">
-          <Welcome />
+          <Discover />
+        </Route>
+        <Route path="/discover">
+          <Discover />
         </Route>
         <Route path="/signup">
           <Signup />
@@ -84,6 +88,12 @@ function App() {
         </Route>
         <Route path="/share/:token">
           <ShareRating />
+        </Route>
+        <Route path="/browse/:type">
+          <Browse />
+        </Route>
+        <Route path="/anime/:id">
+          <SearchedAnime />
         </Route>
         <Route path="/home">
           {isLoggedIn ? <Home /> : <Redirect to="/login" />}

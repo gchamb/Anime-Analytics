@@ -181,6 +181,9 @@ const AnimeOptions = (props) => {
               </option>
             );
           }
+          if (o === "Delete" && pathname.includes("/anime")){
+            return <Fragment key={o} />;
+          }
           const dontShow = "Add to " + props.location;
           if (props.location === "Watching") {
             if (o === dontShow || o === "Add to Plan To Watch") {

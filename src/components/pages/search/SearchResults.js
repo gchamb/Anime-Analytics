@@ -32,28 +32,31 @@ const SearchResults = (props) => {
     content = <Error message="No Anime Found!" />;
   } else {
     content = (
-      <ul className={classes.searchResults}>
-        {animes.map((anime, idx) => {
-          return (
-            <Link
-              className={classes.result}
-              to={`/search/${result}/${anime.mal_id}`}
-              key={idx}
-            >
-              <div className={classes.resultImg}>
-                <img src={anime.image_url} alt="" />
-              </div>
-              <div className={classes.description}>
-                <p>{anime.title}</p>
-                <p>{anime.synopsis}</p>
-              </div>
-              <div className={classes.score}>
-                <p>{anime.score}/10</p>
-              </div>
-            </Link>
-          );
-        })}
-      </ul>
+      <main>
+        <h1 className="centeredWhite">Results: {animes.length}</h1>
+        <ul className={classes.searchResults}>
+          {animes.map((anime, idx) => {
+            return (
+              <Link
+                className={classes.result}
+                to={`/search/${result}/${anime.mal_id}`}
+                key={idx}
+              >
+                <div className={classes.resultImg}>
+                  <img src={anime.image_url} alt="" />
+                </div>
+                <div className={classes.description}>
+                  <p>{anime.title}</p>
+                  <p className={classes.synopsis}>{anime.synopsis}</p>
+                </div>
+                <div className={classes.score}>
+                  <p>{anime.score}/10</p>
+                </div>
+              </Link>
+            );
+          })}
+        </ul>
+      </main>
     );
   }
 

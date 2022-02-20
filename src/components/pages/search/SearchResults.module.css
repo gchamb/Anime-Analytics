@@ -29,8 +29,23 @@
 
 .description {
   margin: auto;
+  font-size: larger;
 }
 .score {
   margin-left: auto;
 }
 
+@media only screen and (max-width: 760px),
+  (min-device-width: 768px) and (max-device-width: 1024px) {
+    
+
+    .score{
+      display: none;
+    }
+    .synopsis{
+      display: none;
+    }
+    .description{
+      text-align: center;
+    }
+  }

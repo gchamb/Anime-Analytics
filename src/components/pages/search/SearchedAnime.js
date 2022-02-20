@@ -5,20 +5,23 @@ import AnimeLinks from "../paf/AnimeLinks";
 import Error from "../../UI/Error";
 import AnimeOptions from "../../UI/AnimeOptions";
 import "../../../index.css";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import axios from "axios";
+import { endpoints } from "../../../utils/util";
+import authContext from "../../../context/auth-context";
 
-const jikan = require("jikanjs");
 const SearchedAnime = (props) => {
   const { id } = useParams();
   const [anime, setAnime] = useState();
   const [error, setError] = useState(false);
+  const auth = useContext(authContext);
   let content;
 
   useEffect(() => {
     const loadAnime = async () => {
       try {
-        const getAnime = await jikan.loadAnime(+id);
-        setAnime(getAnime);
+        const { data } = await axios.get(endpoints.jikan.search + id);
+        setAnime(data);
       } catch (err) {
         console.log(err);
         setError(true);
@@ -33,6 +36,7 @@ const SearchedAnime = (props) => {
   if (anime === undefined) {
     content = <p className="centeredWhite">Loading</p>;
   } else {
+    console.log(anime);
     content = (
       <div className={classes.animePage}>
         <div className={classes.animeCard}>
@@ -40,7 +44,13 @@ const SearchedAnime = (props) => {
           <div className={classes.animeCardImage}>
             <img src={anime.image_url} alt="" />
           </div>
-          <AnimeOptions class="selectorContainer" anime={anime} location="search"/>
+          {auth.isLoggedIn && (
+            <AnimeOptions
+              class="selectorContainer"
+              anime={anime}
+              location="search"
+            />
+          )}
         </div>
 
         <div className={classes.animeDetails}>

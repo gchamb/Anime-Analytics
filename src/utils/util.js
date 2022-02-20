@@ -103,4 +103,10 @@ exports.endpoints = {
     postRecovery: "http://localhost:5000/recovery",
     patchReset: "http://localhost:5000/reset/",
   },
+  jikan: {
+    discover: "http://localhost:5000/discover",
+    search: "http://localhost:5000/search/",
+    paf: "http://localhost:5000/search/",
+    browse: "http://localhost:5000/browse/",
+  },
 };
