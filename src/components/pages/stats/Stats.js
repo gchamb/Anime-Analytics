@@ -8,6 +8,7 @@ import RadarChart from "./RadarChart";
 import { useContext, useEffect, useState } from "react";
 import authContext from "../../../context/auth-context";
 import { endpoints } from "../../../utils/util";
+import Nav from "../../UI/Nav";
 
 const axios = require("axios");
 const Stats = () => {
@@ -33,8 +34,8 @@ const Stats = () => {
   }, [auth.token, statYear]);
 
   const statYearHandler = (e) => {
-    if (e.target.value === "All"){
-      setStatYear(null)
+    if (e.target.value === "All") {
+      setStatYear(null);
       return;
     }
     setStatYear(e.target.value);
@@ -45,6 +46,7 @@ const Stats = () => {
   } else if (data.data) {
     content = (
       <main className={classes.stats}>
+        <Nav />
         <div className="heading">
           <div className={classes.animeStatsImg}>
             <img src={stats} alt="" />
@@ -57,6 +59,7 @@ const Stats = () => {
   } else {
     content = (
       <main className={classes.stats}>
+        <Nav />
         <div className="heading">
           <div className={classes.animeStatsImg}>
             <img src={stats} alt="" />
@@ -67,7 +70,7 @@ const Stats = () => {
           <select onChange={statYearHandler}>
             <option>All</option>
             {years.length > 0 &&
-              years.sort().map((year,idx) => {
+              years.sort().map((year, idx) => {
                 return <option key={idx}>{year}</option>;
               })}
           </select>
@@ -143,7 +146,7 @@ const Stats = () => {
               dataOne={Object.values(data.bar.animesPerMonth)}
               dataOneLabel="Animes Per Month"
               dataTwo={Object.values(
-                data.line.episodesVsAmount.episodesPerMonth
+                data.line.episodesPerMonth
               )}
               dataTwoLabel="Episodes Per Month"
             />

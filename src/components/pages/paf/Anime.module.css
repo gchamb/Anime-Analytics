@@ -1,22 +1,36 @@
-.animePage{
-    text-align: center;
-    width: 80%;
-    margin: auto;
-    color: #cf9fff;
-} 
-.animeCardImage{
-    width: 20%;
-    margin: auto;
+.animePage {
+  text-align: center;
+  width: 80%;
+  margin: auto;
+  color: #cf9fff;
+}
+.animeCardImage {
+  width: 20%;
+  margin: auto;
 }
 
 .animeCardImage img {
-    width: 100%;
-    height: auto;
-    border-radius: 15px;
+  width: 100%;
+  height: auto;
+  border-radius: 15px;
 }
-.animeDetails span{
-    color: gold;
+.animeDetails span {
+  color: gold;
 }
 .animeDetails p {
-    color: white;
+  color: white;
+}
+
+
+@media only screen and (min-device-width: 280px) and (max-device-width: 950px) {
+  .animePage {
+    width: auto;
+  }
+  .animeCardImage {
+    width: 30%;
+  }
+  .animeDetails div {
+    width: 80%;
+    margin: auto;
+  }
 }

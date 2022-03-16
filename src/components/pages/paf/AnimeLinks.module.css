@@ -14,3 +14,9 @@
   border-radius: 50%;
   border: 3px solid #cf9fff;
 }
+
+@media only screen and (min-device-width: 280px) and (max-device-width: 950px) {
+  .animeLinks a{
+    width: 15%;
+  }
+}

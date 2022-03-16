@@ -9,6 +9,7 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { endpoints } from "../../../utils/util";
 import authContext from "../../../context/auth-context";
+import Nav from "../../UI/Nav";
 
 const SearchedAnime = (props) => {
   const { id } = useParams();
@@ -36,9 +37,9 @@ const SearchedAnime = (props) => {
   if (anime === undefined) {
     content = <p className="centeredWhite">Loading</p>;
   } else {
-    console.log(anime);
     content = (
       <div className={classes.animePage}>
+        <Nav/>
         <div className={classes.animeCard}>
           <h1>{anime.title}</h1>
           <div className={classes.animeCardImage}>

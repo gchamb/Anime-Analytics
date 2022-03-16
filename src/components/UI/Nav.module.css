@@ -1,0 +1,47 @@
+.nav {
+  display: flex;
+  width: 100%;
+  list-style: none;
+  margin: auto;
+  justify-content: space-around;
+  background-color: #cf9fff;
+  border-left: 3px solid white;
+  border-right: 3px solid white;
+  border-bottom: 3px solid white;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+.nav li a {
+  color: black;
+  text-decoration: none;
+}
+
+.nav li a:hover {
+  color: white;
+}
+
+@media only screen and (min-device-width: 540px) and (max-device-width: 950px) {
+  .nav {
+    width: auto;
+    padding: 15px;
+  }
+  li {
+    margin-left: 8px;
+  }
+}
+
+@media only screen and (min-device-width: 280px) and (max-device-width: 539px) {
+  .nav {
+    width: auto;
+    border-radius: 0;
+    padding: 15px;
+    border-left: none;
+    border-right: none;
+    border-bottom: 3px solid white;
+  }
+  li {
+    margin-left: 8px;
+  }
+}

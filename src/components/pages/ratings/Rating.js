@@ -13,6 +13,7 @@ import rate from "../../../images/ratings.png";
 import authContext from "../../../context/auth-context";
 import RateModal from "./RateModal";
 import { Redirect } from "react-router-dom";
+import Nav from "../../UI/Nav";
 
 const axios = require("axios");
 const Rating = (props) => {
@@ -95,7 +96,7 @@ const Rating = (props) => {
     });
 
     navigator.clipboard.writeText(data.url);
-    window.alert("Copied to Clipboard!")
+    window.alert("Copied to Clipboard!");
   };
   useEffect(() => {
     const getRatings = async () => {
@@ -123,11 +124,12 @@ const Rating = (props) => {
     getRatings();
   }, [paginator.page, auth.token, update.refresh]);
 
-  if (ratings === undefined && error ===false) {
+  if (ratings === undefined && error === false) {
     content = <p className="centeredWhite">Loading...</p>;
   } else if (ratings !== undefined && ratings.length === 0 && error === false) {
     content = (
-      <main>
+      <main className={classes.ratingsPage}>
+        <Nav />
         <div className="heading">
           <div className={classes.animeRatingImg}>
             <img src={rate} alt="" />
@@ -152,6 +154,7 @@ const Rating = (props) => {
             noUpdate={true}
           />
         )}
+        <Nav />
         <div className="heading">
           <div className={classes.animeRatingImg}>
             <img src={rate} alt="" />

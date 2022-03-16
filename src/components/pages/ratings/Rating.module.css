@@ -53,10 +53,13 @@
 
 @media only screen and (max-width: 760px),
   (min-device-width: 768px) and (max-device-width: 1024px) {
-  .ratingsContainer {
+  .ratingsPage {
     width: 100%;
   }
-  .rate{
+  .ratingsContainer {
+    width: 95%;
+  }
+  .rate {
     width: 50%;
   }
 }

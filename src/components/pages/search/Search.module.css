@@ -38,14 +38,9 @@
   border: none;
   border-radius: 15px;
 }
-@media only screen and (max-width: 760px),
-  (min-device-width: 768px) and (max-device-width: 1024px) {
-  .search {
-    margin-top: 20%;
+@media only screen and (min-device-width: 280px) and (max-device-width: 539px) {
+  .search{
+    width: auto;
+    margin: auto;
   }
-  .searchImage {
-    width: 25%;
-  }
-
-  
 }

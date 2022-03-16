@@ -6,13 +6,13 @@
   color: white;
   font-size: 1.8em;
 }
-.filters{
+.filters {
   display: flex;
   width: 80%;
   margin: auto;
-  align-items:center;
+  align-items: center;
 }
-.selectRandom{
+.selectRandom {
   margin-left: auto;
 }
 .episodeCount {
@@ -50,4 +50,14 @@
   width: 100%;
   height: auto;
   border-radius: 15px;
+}
+
+@media only screen and (min-device-width: 280px) and (max-device-width: 539px) {
+  .animes {
+    width: auto;
+  }
+  .anime{
+    width: 20%;
+    font-size: medium;
+  }
 }

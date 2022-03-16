@@ -4,6 +4,7 @@ import { endpoints } from "../../../utils/util";
 import logo from "../../../images/logo.png";
 import classes from "./Discover.module.css";
 import authContext from "../../../context/auth-context";
+import Nav from "../../UI/Nav";
 
 const axios = require("axios");
 const Discover = () => {
@@ -19,7 +20,7 @@ const Discover = () => {
     "Friday",
     "Saturday",
   ][new Date().getDay()];
-  const { isLoggedIn, onLogout } = useContext(authContext);
+  const { isLoggedIn } = useContext(authContext);
 
   useEffect(() => {
     const getAnimes = async () => {
@@ -40,9 +41,7 @@ const Discover = () => {
   }
   return (
     <main className={classes.discover}>
-      {isLoggedIn ? (
-        "hey"
-      ) : (
+      {!isLoggedIn && (
         <nav>
           <ul className={classes.discoverNav}>
             <li>
@@ -54,6 +53,7 @@ const Discover = () => {
           </ul>
         </nav>
       )}
+      {isLoggedIn && <Nav />}
       <header className={classes.discoverHeader}>
         <img src={logo} alt="" />
         <p>Discover the latest and greatest to fit your taste!</p>

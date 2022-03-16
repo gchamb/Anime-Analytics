@@ -5,6 +5,7 @@ import AnimeOptions from "../../UI/AnimeOptions";
 import Paginator from "../../UI/Paginator";
 import authContext from "../../../context/auth-context";
 import { endpoints } from "../../../utils/util";
+import Nav from "../../UI/Nav";
 
 const axios = require("axios");
 const List = () => {
@@ -70,7 +71,6 @@ const List = () => {
       });
     };
     getAnimeList();
-
   }, [
     listOption.url,
     auth.token,
@@ -81,6 +81,7 @@ const List = () => {
 
   return (
     <div className={classes.animeList}>
+      <Nav />
       <div className="heading">
         <div className={classes.animeListImg}>
           <img src={list} alt="" />

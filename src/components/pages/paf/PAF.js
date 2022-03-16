@@ -3,6 +3,7 @@ import "../../../index.css";
 import yuno from "../../../images/yuno.jpg";
 import { useState } from "react";
 import { genreIds } from "../../../utils/util";
+import Nav from "../../UI/Nav";
 
 const PAF = (props) => {
   document.title = "PAF!";
@@ -50,6 +51,7 @@ const PAF = (props) => {
   };
   return (
     <div className={classes.home}>
+      <Nav />
       <div className={classes.heading}>
         <div className={classes.headingImg}>
           <img src={yuno} alt="yuno gasai" />

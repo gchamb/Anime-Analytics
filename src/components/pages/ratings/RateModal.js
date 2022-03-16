@@ -15,20 +15,16 @@ const ModalOverlay = (props) => {
 
 const RateModal = (props) => {
   const currentDate = new Date();
+  const yyyy = currentDate.getFullYear();
+  let mm = currentDate.getMonth() + 1; // Months start at 0!
+  let dd = currentDate.getDate();
+
+  if (dd < 10) dd = "0" + dd;
+  if (mm < 10) mm = "0" + mm;
+
+  const today = yyyy + "-" + mm + "-" + dd;
   const [rating, setRating] = useState(0);
-  const [date, setDate] = useState(
-    currentDate.getMonth() + 1 < 10 && currentDate.getDay() < 10
-      ? currentDate.getFullYear() +
-          "-0" +
-          (currentDate.getMonth()+1) +
-          "-0" +
-          currentDate.getDay()
-      : currentDate.getFullYear() +
-          "-" +
-          (currentDate.getMonth()+1) +
-          "-" +
-          currentDate.getDay()
-  );
+  const [date, setDate] = useState(today);
   const stars = [];
 
   function starChangeHandler(e) {
@@ -40,9 +36,9 @@ const RateModal = (props) => {
   }
   function submitRatingHanlder() {
     const rate = {
-      rate:+rating,
-      date: date
-    }
+      rate: +rating,
+      date: date,
+    };
     props.removeModal();
     props.submitRating(rate);
   }
@@ -78,19 +74,7 @@ const RateModal = (props) => {
                 value={date}
                 onChange={dateChangeHandler}
                 className={classes.date}
-                max={
-                  currentDate.getMonth() + 1 < 10 && currentDate.getDay() < 10
-                    ? currentDate.getFullYear() +
-                      "-0" +
-                      (currentDate.getMonth() + 1) +
-                      "-0" +
-                      currentDate.getDay()
-                    : currentDate.getFullYear() +
-                      "-" +
-                      (currentDate.getMonth() + 1) +
-                      "-" +
-                      currentDate.getDay()
-                }
+                max={today}
               />
             </div>
           )}

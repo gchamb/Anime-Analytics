@@ -3,13 +3,14 @@
   margin: auto;
   text-align: center;
 }
+
 .heading h1 {
   font-size: 3em;
   color: #cf9fff;
 }
-.genres p{
-    color: white;
-    font-size: 1em;
+.genres p {
+  color: white;
+  font-size: 1em;
 }
 .genres select {
   margin: 5px;
@@ -18,18 +19,26 @@
   background-color: #cf9fff;
   color: white;
 }
-.headingImg{
-    width: 10%;
-    margin: auto;
+.headingImg {
+  width: 10%;
+  margin: auto;
 }
-.headingImg img{
+.headingImg img {
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+  border: 3px solid #cf9fff;
+}
+.btnDiv {
+  margin-top: 10px;
+}
+
+@media only screen and (min-device-width: 280px) and (max-device-width: 539px) {
+  .home {
     width: 100%;
-    height: auto;
-    border-radius: 50%;
-    border: 3px solid #cf9fff;
+  }
+  .genres {
+    width: 80%;
+    margin: auto;
+  }
 }
-.btnDiv{
-    margin-top: 10px;
-}
-
-

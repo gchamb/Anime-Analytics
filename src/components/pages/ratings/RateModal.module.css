@@ -40,3 +40,11 @@
   margin: 2px;
   border-radius: 5px;
 }
+
+@media only screen and (min-device-width: 280px) and (max-device-width: 950px) {
+  .modal{
+    right: 20vw;
+    left: 20vw;
+
+  }
+}

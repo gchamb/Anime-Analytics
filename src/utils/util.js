@@ -79,6 +79,7 @@ exports.pagesPerGenre = {
 };
 
 exports.endpoints = {
+  overview:"http://localhost:5000/overview",
   watching: {
     get: "http://localhost:5000/watching&page=",
     delete: "http://localhost:5000/watching/",
